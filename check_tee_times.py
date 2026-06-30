@@ -8,8 +8,11 @@ API_URL = f"https://phx-api-be-east-1b.kenna.io/v2/tee-times?date={DATE}&facilit
 GMAIL_USER = os.environ["GMAIL_USER"]
 GMAIL_APP_PASSWORD = os.environ["GMAIL_APP_PASSWORD"]
 PHONE_GATEWAY = os.environ["PHONE_GATEWAY"]
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36", "Referer": "https://starcke-park.book.teeitup.com/", "Origin": "https://starcke-park.book.teeitup.com", "Accept": "application/json"}
 
-data = requests.get(API_URL, timeout=20).json()
+resp = requests.get(API_URL, headers=HEADERS, timeout=20)
+print(f"HTTP status: {resp.status_code}")
+data = resp.json() if resp.headers.get("content-type", "").startswith("application/json") else []
 tee_times = data if isinstance(data, list) else (data.get("teeTimes") or data.get("results") or data.get("data") or [])
 count = len(tee_times)
 times_preview = ", ".join(str(t.get("time") or t.get("teeTime") or t.get("startTime") or "unknown") for t in tee_times[:5])
