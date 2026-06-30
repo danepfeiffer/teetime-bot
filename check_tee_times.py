@@ -7,7 +7,7 @@ API_URL = f"https://phx-api-be-east-1b.kenna.io/v2/tee-times?date={DATE}&facilit
 BOOKING_LINK = f"https://starcke-park.book.teeitup.com/?course={FACILITY_ID}&date={DATE}"
 NTFY_TOPIC = "starcke-teetime-0d5ffef278fc"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36", "Referer": "https://starcke-park.book.teeitup.com/", "Origin": "https://starcke-park.book.teeitup.com", "Accept": "application/json", "x-be-alias": ALIAS}
-TEST_MODE = True
+TEST_MODE = False
 
 resp = requests.get(API_URL, headers=HEADERS, timeout=20)
 print(f"HTTP status: {resp.status_code}")
